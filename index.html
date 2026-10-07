@@ -457,7 +457,7 @@ SOFTWARE.
 
     <!-- 08：谢幕 -->
     <section class="page ending-page">
-      <div class="reveal"><p class="section-label center">12 / SEE YOU THERE</p><img class="ending-art accent" data-art="accent12" alt="夕阳下的布布和一二" loading="lazy"><h2>我们，婚礼见。</h2><p class="closing">这一天的开心，<br>少了你，就会少一点。</p><div class="ending-actions"><button class="bless" id="bless"><i data-icon="Heart"></i><span>送一颗小心心</span></button><a class="save-card" id="saveCard" href="media/wedding-info-card.webp" target="_blank" rel="noopener"><i data-icon="ArrowDown"></i><span class="save-card-copy"><b>打开婚礼信息图</b><small>打开图片后，敬请截图保存</small></span></a></div><p class="closing-names"><span data-text="person1">钱立勇</span> & <span data-text="person2">王若昕</span></p><p class="end-date" id="endDate">2026.10.25 · WITH LOVE</p><div class="footer-rule"></div></div>
+      <div class="reveal"><p class="section-label center">12 / SEE YOU THERE</p><img class="ending-art accent" data-art="accent12" alt="夕阳下的布布和一二" loading="lazy"><h2>我们，婚礼见。</h2><p class="closing">这一天的开心，<br>少了你，就会少一点。</p><div class="ending-actions"><button class="bless" id="bless"><i data-icon="Heart"></i><span>送一颗小心心</span></button><a class="save-card" id="saveCard" href="media/wedding-info-card.webp?v=0daf25f6" target="_blank" rel="noopener"><i data-icon="ArrowDown"></i><span class="save-card-copy"><b>打开婚礼信息图</b><small>打开图片后，敬请截图保存</small></span></a></div><p class="closing-names"><span data-text="person1">钱立勇</span> & <span data-text="person2">王若昕</span></p><p class="end-date" id="endDate">2026.10.25 · WITH LOVE</p><div class="footer-rule"></div></div>
     </section>
   </main>
   <div class="toast" id="toast" role="status"></div>
@@ -575,6 +575,9 @@ SOFTWARE.
     $('#navigateLocation').addEventListener('click',()=>{if(/^https?:\/\//i.test(WEDDING.mapUrl))window.open(WEDDING.mapUrl,'_blank','noopener,noreferrer');});
     $('#bless').addEventListener('click',()=>{celebrate();$('#bless span').textContent='谢谢你的小心心';notify('带着你的祝福，我们婚礼见！');});
     const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target);}}),{threshold:.08});$$('.reveal').forEach(el=>revealObserver.observe(el));
+    const saveCardPreload=new Image();
+    const cardPreloadObserver=new IntersectionObserver((entries,observer)=>{if(entries[0].isIntersecting){saveCardPreload.src=$('#saveCard').href;observer.disconnect();}},{rootMargin:'400px 0px'});
+    cardPreloadObserver.observe($('.date-page'));
     function progress(){const height=document.documentElement.scrollHeight-innerHeight;$('#progressBar').style.width=(height>0?Math.min(100,window.scrollY/height*100):0)+'%';}
     window.addEventListener('scroll',progress,{passive:true});progress();renderIcons();
   </script>
